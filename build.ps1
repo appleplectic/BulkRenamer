@@ -1,0 +1,1 @@
+pyinstaller --onefile --clean --add-data="rename.ico:." --noconfirm --log-level WARN --windowed -i rename.ico main.py

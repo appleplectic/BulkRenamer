@@ -71,32 +71,41 @@ class BulkRenamerApp:
             return
 
         if csv_file.lower().endswith("xls") or csv_file.lower().endswith("xlsx"):
-            df = pd.read_excel(csv_file, header=None)
+            df = pd.read_excel(csv_file, header=None, dtype=str)
             filepath = pathlib.Path(self.tempfolder.name) / "temp.csv"
             df.to_csv(filepath, index=False, header=False)
             csv_file = filepath
+            print(csv_file)
 
         try:
             renames = 0
-            with open(csv_file, mode='r') as file:
+            already_exists = 0
+            with open(csv_file, mode='r', encoding='utf-8') as file:
                 reader = csv.reader(file)
+                files = os.listdir(folder)
 
                 for row in reader:
                     if len(row) < 2:
                         continue
 
                     old_name, new_name = row[0], row[1]
+                    if not old_name or not new_name:
+                        continue
 
-                    for file in os.listdir(folder):
+                    for file in files:
                         no_ext, ext = os.path.splitext(file)
                         if os.path.isfile(os.path.join(folder, file)) and old_name in no_ext:
                             old_path = os.path.join(folder, file)
                             new_path = os.path.join(folder, no_ext.replace(old_name, new_name) + ext)
+
+                            if os.path.exists(new_path):
+                                already_exists += 1
+
                             os.rename(old_path, new_path)
                             self.rename_history.append((new_path, old_path))
                             renames += 1
 
-            messagebox.showinfo("Success", f"{renames} files renamed successfully.")
+            messagebox.showinfo("Success", f"{renames} files renamed successfully, {already_exists} files skipped because destination exists.")
 
         except ValueError as e:
             messagebox.showerror("Error", f"An error occurred: {e}")
