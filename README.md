@@ -30,4 +30,3 @@ You can build an executable using `pyinstaller` with the build script.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 Icons from Iconduck: [https://iconduck.com/icons/68113/rename](https://iconduck.com/icons/68113/rename), licensed under the MIT License - see the [LICENSE-Iconduck](LICENSE-Iconduck) file for details.
-```
