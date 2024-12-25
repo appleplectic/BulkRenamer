@@ -2,6 +2,12 @@
 A small python script to rename files in a directory in bulk.
 
 ## Usage
+
+Get the latest release as an executable from the [releases page](https://github.com/appleplectic/BulkRenamer/releases).
+
+Note that antivirus software may flag the executable as a false positive.
+
+### Running from Source
 1. Clone the repository
 2. Setup the environment.
 ```bash
@@ -14,7 +20,7 @@ pip install -r requirements.txt
 python3 main.py
 ```
 
-## Build Executable
+### Build Executable
 You can build an executable using `pyinstaller` with the build script.
 ```bash
 ./build.sh
